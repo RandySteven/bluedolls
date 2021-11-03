@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">TestMAD</string>
+    <string name="full_name">Full Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="password_confirm">Password Confirm</string>
+    <string name="gender">Gender</string>
+    <string name="or">Or</string>
+    <string name="register">Register</string>
+    <string name="already_have_account">Already Have Account</string>
+    <string name="login">Login</string>
+    <string name="doll_name">Doll Name</string>
+    <string name="insert_doll">Insert Doll</string>
+    <string name="doll_description">Doll Description</string>
+    <string name="save_doll">Save doll</string>
+    <string name="bluedoll_is_one_of_the_most_famous_company_which_provides_high_quality_dolls_worldwide_as_it_stands_currently_bluedoll_is_trying_to_reach_even_more_customer_by_creating_a_mobile_application_based_on_android_operating_system_which_may_be_downloaded_by_customers_thus_increasing_bluedoll_popularity">BlueDoll is one of the most famous company which provides high quality dolls worldwide. As it stands, currently BlueDoll is trying to reach even more customer by creating a mobile application based on Android Operating System which may be downloaded by customers, thus increasing BlueDoll popularity.</string>
+    <string name="blue_dolls">Blue Dolls</string>
+</resources>
