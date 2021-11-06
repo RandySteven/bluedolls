@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,10 +25,12 @@ public class DollsAdpater extends RecyclerView.Adapter<DollsAdpater.ViewHolder>{
     public static class ViewHolder extends RecyclerView.ViewHolder{
         private TextView tvDollName;
         private TextView tvDollDescription;
+        private Button btnSeeDoll;
         public ViewHolder(View view){
             super(view);
             tvDollName = view.findViewById(R.id.tvDollName);
             tvDollDescription = view.findViewById(R.id.tvDollDescription);
+            btnSeeDoll = view.findViewById(R.id.btnSeeDoll);
         }
 
         public TextView getTvDollName(){
@@ -37,27 +40,31 @@ public class DollsAdpater extends RecyclerView.Adapter<DollsAdpater.ViewHolder>{
         public TextView getTvDollDescription(){
             return tvDollDescription;
         }
+
+        public Button getBtnSeeDoll(){
+            return btnSeeDoll;
+        }
     }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        // Create a new view, which defines the UI of the list item
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.doll_item, viewGroup, false);
 
         return new ViewHolder(view);
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-
-        // Get element from your dataset at this position and replace the
-        // contents of the view with that element
         viewHolder.getTvDollName().setText(dolls.get(position).getDollName());
         viewHolder.getTvDollDescription().setText(dolls.get(position).getDollDescription());
+        viewHolder.getBtnSeeDoll().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
         return dolls.size();

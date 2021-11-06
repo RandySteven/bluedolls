@@ -34,4 +34,13 @@
         app:layout_constraintStart_toEndOf="@id/ivDoll"
         android:layout_marginTop="20dp"/>
 
+    <Button
+        android:id="@+id/btnSeeDoll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="See Doll"
+        app:layout_constraintTop_toBottomOf="@id/tvDollName"
+        app:layout_constraintStart_toEndOf="@id/tvDollDescription"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

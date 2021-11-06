@@ -15,21 +15,22 @@
 
         <include layout="@layout/main_toolbar"/>
 
-        <TextView
-            android:id="@+id/tvUserName"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+<!--        <fragment-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:id="@+id/dollsFragment"-->
+<!--            android:name="com.example.testmad.DollsFragment"/>-->
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvDolls"
-            app:layout_constraintTop_toBottomOf="@id/tvUserName"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+<!--        <fragment-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:id="@+id/insertDollFragment"-->
+<!--            android:name="com.example.testmad.InsertDollFragment"/>-->
+
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/doll_item"/>
+            android:id="@+id/frameLayout"/>
     </LinearLayout>
 
     <RelativeLayout

@@ -6,6 +6,7 @@ public class Doll {
     private String dollId;
     private String dollName;
     private String dollDescription;
+//    private int dollImage;
     private User user;
 
     public String getDollId() {
@@ -15,6 +16,14 @@ public class Doll {
     public void setDollId(String dollId) {
         this.dollId = dollId;
     }
+
+//    public void setDollImage(int dollImage){
+//        this.dollImage = dollImage;
+//    }
+
+//    public int getDollImage(){
+//        return dollImage;
+//    }
 
     public String getDollName() {
         return dollName;
@@ -44,6 +53,7 @@ public class Doll {
         this.dollId = dollId;
         this.dollName = dollName;
         this.dollDescription = dollDescription;
+//        this.dollImage = dollImage;
         this.user = user;
     }
 }
