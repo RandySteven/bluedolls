@@ -1,27 +1,25 @@
-package com.example.testmad;
+package com.example.a2301876316;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.testmad.models.User;
-import com.example.testmad.models.UserFactory;
+import com.example.a2301876316.models.User;
+import com.example.a2301876316.models.UserFactory;
 
 import java.util.ArrayList;
 
 public class RegisterActivity extends AppCompatActivity {
 
     User user;
-    ArrayList<User> userArrayList = new ArrayList<>();
+    ArrayList<User> users = new UserFactory().getUsers();
     Intent intent;
 
     @Override
@@ -31,23 +29,30 @@ public class RegisterActivity extends AppCompatActivity {
 
         init();
 
+        if(users.isEmpty()){
+            User admin = new UserFactory().userCreate("AA001", "Admin", "admin21@gmail.com", "admin1234", "Male", "Admin");
+            users.add(admin);
+        }
         insertData();
     }
 
     EditText etFullName, etEmail, etPassword, etPasswordConfirm;
     Button btnRegister, btnLogin;
-    TextView msgFullName, msgPassword, msgGender, msgPasswordConfirm;
-
+    TextView msgFullName, msgEmail, msgPassword, msgGender, msgPasswordConfirm, msgCheckBoxTermService;
+    CheckBox checkBoxTermService;
     private void init(){
         etFullName = findViewById(R.id.etFullName);
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         etPasswordConfirm = findViewById(R.id.etPasswordConfirm);
+        checkBoxTermService = findViewById(R.id.checkboxTermService);
         btnRegister = findViewById(R.id.btnRegister);
         msgFullName = findViewById(R.id.msgFullName);
+        msgEmail = findViewById(R.id.msgEmail);
         msgPassword = findViewById(R.id.msgPassword);
         msgGender = findViewById(R.id.msgGender);
         msgPasswordConfirm = findViewById(R.id.msgPasswordConfirm);
+        msgCheckBoxTermService = findViewById(R.id.msgCheckBoxTermService);
         btnLogin = findViewById(R.id.btnLogin);
     }
 
@@ -63,6 +68,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+    int userId;
 
     private void insertData(){
 
@@ -81,6 +87,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+
         btnRegister.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -89,7 +96,7 @@ public class RegisterActivity extends AppCompatActivity {
                 password = etPassword.getText().toString();
                 passwordConfirm = etPasswordConfirm.getText().toString();
                 boolean validation1 = false;boolean validation2 = false;boolean validation3 = false;
-                boolean validation4 = false;
+                boolean validation4 = false;boolean validation5 = false;boolean validation6 = false;
                 if(fullName.length() != 0){
                     validation1 = true;
                     msgFullName.setText(null);
@@ -110,6 +117,11 @@ public class RegisterActivity extends AppCompatActivity {
                     msgGender.setText(null);
                 }
 
+                if(checkBoxTermService.isChecked()){
+                    validation5 = true;
+                    msgCheckBoxTermService.setText(null);
+                }
+
                 if(validation1 == false){
                     msgFullName.setText("Full Name must required");
                 }
@@ -126,28 +138,30 @@ public class RegisterActivity extends AppCompatActivity {
                     msgGender.setText("Gender must selected");
                 }
 
-                if(validation1 == true && validation2 == true && validation3 == true && validation4 == true){
-                    ArrayList<User> users = new UserFactory().getUsers();
-                    int userId = 0;
-                    String id = "";
-                    if(users.isEmpty()){
-                        userId = 1;
-                    }else{
-                        for(int i = 0 ; i < users.size() ; i++){
-                            userId += 1;
-                        }
-                    }
+                if(validation5 == false){
+                    msgCheckBoxTermService.setText("Must checked");
+                }
 
-                    if(userId < 10){
-                        id = "US00" + userId;
-                    }else if(userId >= 10 && userId < 100){
-                        id = "US0" + userId;
-                    }else{
-                        id = "US" + userId;
+                if(validation1 == true && validation2 == true &&
+                        validation3 == true && validation4 == true &&
+                        validation5 == true){
+                    String id = "";
+
+                    for(int i = 0 ; i < users.size() ; i++){
+
+                        if(i < 10){
+                            id = "US00" + i;
+                        }else if(i >= 10 && i < 100){
+                            id = "US0" + i;
+                        }else{
+                            id = "US" + i;
+                        }
+
                     }
 
                     User user = new UserFactory().userCreate(id, fullName, email, password, gender, "Users");
                     new UserFactory().insertUser(user);
+                    userId ++;
                     intent = new Intent(RegisterActivity.this, LoginActivity.class);
                     startActivity(intent);
                 }

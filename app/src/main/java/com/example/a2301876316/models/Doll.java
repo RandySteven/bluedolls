@@ -1,12 +1,10 @@
-package com.example.testmad.models;
-
-import java.io.File;
+package com.example.a2301876316.models;
 
 public class Doll {
     private String dollId;
     private String dollName;
     private String dollDescription;
-//    private int dollImage;
+    private int dollImage;
     private User user;
 
     public String getDollId() {
@@ -17,13 +15,13 @@ public class Doll {
         this.dollId = dollId;
     }
 
-//    public void setDollImage(int dollImage){
-//        this.dollImage = dollImage;
-//    }
+    public void setDollImage(int dollImage){
+        this.dollImage = dollImage;
+    }
 
-//    public int getDollImage(){
-//        return dollImage;
-//    }
+    public int getDollImage(){
+        return dollImage;
+    }
 
     public String getDollName() {
         return dollName;
@@ -49,11 +47,11 @@ public class Doll {
         return user;
     }
 
-    public Doll(String dollId, String dollName, String dollDescription, User user){
+    public Doll(String dollId, String dollName, String dollDescription, int dollImage, User user){
         this.dollId = dollId;
         this.dollName = dollName;
         this.dollDescription = dollDescription;
-//        this.dollImage = dollImage;
+        this.dollImage = dollImage;
         this.user = user;
     }
 }

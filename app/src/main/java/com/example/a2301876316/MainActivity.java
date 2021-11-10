@@ -1,4 +1,4 @@
-package com.example.testmad;
+package com.example.a2301876316;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -6,20 +6,12 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
-import com.example.testmad.models.Doll;
-import com.example.testmad.models.DollFactory;
-import com.example.testmad.models.User;
-
-import java.util.ArrayList;
+import com.example.a2301876316.models.User;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,23 +22,12 @@ public class MainActivity extends AppCompatActivity {
     AboutUsFragment aboutUsFragment = new AboutUsFragment();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        if(dolls.isEmpty()){
-//            Doll dolls1 = new DollFactory().createDoll("Doll 1", "Doll 1", user);
-//            Doll dolls2 = new DollFactory().createDoll("Doll 2", "Doll 2", user);
-//            Doll dolls3 = new DollFactory().createDoll("Doll 3", "Doll 3", user);
-//            new DollFactory().insertDolls(dolls1);
-//            new DollFactory().insertDolls(dolls2);
-//            new DollFactory().insertDolls(dolls3);
-//        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         drawerLayout = findViewById(R.id.drawer_layout);
         replaceFragment(dollsFragment);
-//        init();
-//        recyclerView();
+
     }
-
-
 
     public void ClickMenu(View view){
         openDrawer(drawerLayout);
@@ -76,6 +57,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void ClickAboutUs(View view){
         replaceFragment(aboutUsFragment);
+    }
+
+    public void ClickLogout(View view){
+        user = null;
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(intent);
     }
 
     protected void replaceFragment(Fragment fragment){

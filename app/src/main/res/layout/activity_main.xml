@@ -14,19 +14,6 @@
         tools:ignore="MissingConstraints">
 
         <include layout="@layout/main_toolbar"/>
-
-<!--        <fragment-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:id="@+id/dollsFragment"-->
-<!--            android:name="com.example.testmad.DollsFragment"/>-->
-
-<!--        <fragment-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:id="@+id/insertDollFragment"-->
-<!--            android:name="com.example.testmad.InsertDollFragment"/>-->
-
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

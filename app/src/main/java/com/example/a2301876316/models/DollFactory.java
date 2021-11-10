@@ -1,4 +1,4 @@
-package com.example.testmad.models;
+package com.example.a2301876316.models;
 
 import java.util.ArrayList;
 
@@ -6,7 +6,7 @@ public class DollFactory {
 
     static ArrayList<Doll> dolls = new ArrayList<>();
 
-    public Doll createDoll(String dollName, String dollDescription, User user){
+    public Doll createDoll(String dollName, String dollDescription, int dollImage, User user){
         String dollId = "";
         for(int i = 0 ; i < dolls.size() ; i++){
             if(dolls.isEmpty() && dolls.size() < 10){
@@ -17,7 +17,7 @@ public class DollFactory {
                 dollId = "DD" + i+1;
             }
         }
-        return new Doll(dollId, dollName, dollDescription, user);
+        return new Doll(dollId, dollName, dollDescription, dollImage, user);
     }
 
     public static void insertDolls(Doll doll){

@@ -1,4 +1,4 @@
-package com.example.testmad;
+package com.example.a2301876316;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,8 +9,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.testmad.models.User;
-import com.example.testmad.models.UserFactory;
+import com.example.a2301876316.models.User;
+import com.example.a2301876316.models.UserFactory;
 
 import java.util.ArrayList;
 
@@ -39,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         ArrayList<User> users = new UserFactory().getUsers();
         for(int i = 0 ; i < users.size() ; i++){
             System.out.println(users.get(i).getUserEmail());
+            System.out.println(users.get(i).getUserId());
         }
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override

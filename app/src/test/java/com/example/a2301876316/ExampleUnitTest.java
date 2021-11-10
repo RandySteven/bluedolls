@@ -1,4 +1,4 @@
-package com.example.testmad;
+package com.example.a2301876316;
 
 import org.junit.Test;
 
