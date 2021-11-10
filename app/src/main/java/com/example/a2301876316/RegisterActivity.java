@@ -34,6 +34,7 @@ public class RegisterActivity extends AppCompatActivity {
             users.add(admin);
         }
         insertData();
+        toLogin();
     }
 
     EditText etFullName, etEmail, etPassword, etPasswordConfirm;

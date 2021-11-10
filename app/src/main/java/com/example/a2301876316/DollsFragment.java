@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -43,14 +44,11 @@ public class DollsFragment extends Fragment {
         tvUserName.setText(user.getUserName());
     }
 
-    RecyclerView mRecyclerView;
-    RecyclerView.Adapter mAdapter;
+    ListView mListView;
+    DollsAdpater mAdapter;
     private void recyclerView(){
-        mRecyclerView = vg.findViewById(R.id.rvDolls);
-        LinearLayoutManager llm = new LinearLayoutManager(getContext());
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(llm);
+        mListView = vg.findViewById(R.id.lvDolls);
         mAdapter = new DollsAdpater(getContext(), dolls);
-        mRecyclerView.setAdapter(mAdapter);
+        mListView.setAdapter(mAdapter);
     }
 }

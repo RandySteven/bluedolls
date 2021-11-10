@@ -68,7 +68,7 @@ public class InsertDollFragment extends Fragment {
                 dollImage = Integer.parseInt(spnDollImage.getSelectedItem().toString());
                 dollName = etDollName.getText().toString();
                 dollDescription = etDollDescription.getText().toString();
-                boolean validation1 = false;boolean validation2 = false;
+                boolean validation1 = false;boolean validation2 = false;boolean validation3 = false;
                 if(dollName.length() == 0){
                     tvMessageDollName.setText("Doll name must required");
                 }else{
@@ -82,6 +82,7 @@ public class InsertDollFragment extends Fragment {
                     validation2 = true;
                     tvMessageDollDescription.setText(null);
                 }
+
 
                 if(validation1 == true && validation2 == true){
                     doll = new DollFactory().createDoll(dollName, dollDescription, dollImage, user);

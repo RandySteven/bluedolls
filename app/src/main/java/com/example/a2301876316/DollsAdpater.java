@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,73 +18,41 @@ import com.example.a2301876316.models.User;
 
 import java.util.ArrayList;
 
-public class DollsAdpater extends RecyclerView.Adapter<DollsAdpater.ViewHolder>{
+public class DollsAdpater extends ArrayAdapter<Doll> {
     private ArrayList<Doll> dolls = new ArrayList<>();
     private LayoutInflater mInflater;
     private Context context;
     User user = DollsFragment.user;
-    DollsAdpater(Context context, ArrayList<Doll> dolls){
+    public DollsAdpater(Context context, ArrayList<Doll> dolls){
+        super(context, 0, dolls);
         this.context = context;
         this.mInflater = LayoutInflater.from(context);
         this.dolls = dolls;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
-        private ImageView ivDollImage;
-        private TextView tvDollName;
-        private TextView tvDollDescription;
-        private Button btnSeeDoll;
-        private Button btnDelete;
-        private Button btnUpdate;
-        public ViewHolder(View view){
-            super(view);
-            ivDollImage = view.findViewById(R.id.ivDoll);
-            tvDollName = view.findViewById(R.id.tvDollName);
-            tvDollDescription = view.findViewById(R.id.tvDollDescription);
-            btnSeeDoll = view.findViewById(R.id.btnSeeDoll);
-            btnDelete = view.findViewById(R.id.btnDelete);
-            btnUpdate = view.findViewById(R.id.btnUpdate);
+
+    public View getView(int position, View convertView, ViewGroup parent){
+        Doll doll = getItem(position);
+        if(convertView == null){
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.doll_item, parent, false);
         }
+        ImageView ivDollImage;
+        TextView tvDollName;
+        TextView tvDollDescription;
+        Button btnSeeDoll;
+        Button btnDelete;
+        Button btnUpdate;
+        ivDollImage = convertView.findViewById(R.id.ivDoll);
+        tvDollName = convertView.findViewById(R.id.tvDollName);
+        tvDollDescription = convertView.findViewById(R.id.tvDollDescription);
+        btnSeeDoll = convertView.findViewById(R.id.btnSeeDoll);
+        btnDelete = convertView.findViewById(R.id.btnDelete);
+        btnUpdate = convertView.findViewById(R.id.btnUpdate);
 
-        public TextView getTvDollName(){
-            return tvDollName;
-        }
-
-        public TextView getTvDollDescription(){
-            return tvDollDescription;
-        }
-
-        public Button getBtnSeeDoll(){
-            return btnSeeDoll;
-        }
-
-        public Button getBtnDelete(){
-            return btnDelete;
-        }
-
-        public Button getBtnUpdate(){
-            return btnUpdate;
-        }
-
-        public ImageView getIvDollImage(){
-            return ivDollImage;
-        }
-    }
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.doll_item, viewGroup, false);
-
-        return new ViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        System.out.println(user.getUserName());
-        viewHolder.getIvDollImage().setImageResource(dolls.get(position).getDollImage());
-        viewHolder.getTvDollName().setText(dolls.get(position).getDollName());
-        viewHolder.getTvDollDescription().setText(dolls.get(position).getDollDescription());
-        viewHolder.getBtnSeeDoll().setOnClickListener(new View.OnClickListener() {
+        ivDollImage.setImageResource(doll.getDollImage());
+        tvDollName.setText(doll.getDollName());
+        tvDollDescription.setText(doll.getDollDescription());
+        btnSeeDoll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 System.out.println(position);
@@ -93,9 +62,10 @@ public class DollsAdpater extends RecyclerView.Adapter<DollsAdpater.ViewHolder>{
                         .commit();
             }
         });
+
         if(user.getUserName().equals(dolls.get(position).getUser().getUserName())
         && user.getUserEmail().equals(dolls.get(position).getUser().getUserEmail())){
-            viewHolder.getBtnDelete().setOnClickListener(new View.OnClickListener() {
+            btnDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     dolls.remove(position);
@@ -104,13 +74,13 @@ public class DollsAdpater extends RecyclerView.Adapter<DollsAdpater.ViewHolder>{
             });
         }else{
             if(!user.getUserRole().equals("Admin")){
-                viewHolder.getBtnDelete().setVisibility(View.GONE);
+                btnDelete.setVisibility(View.GONE);
             }
         }
 
         if(user.getUserName().equals(dolls.get(position).getUser().getUserName())
                 && user.getUserEmail().equals(dolls.get(position).getUser().getUserEmail())){
-            viewHolder.getBtnUpdate().setOnClickListener(new View.OnClickListener(){
+            btnUpdate.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
                     FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
@@ -121,13 +91,14 @@ public class DollsAdpater extends RecyclerView.Adapter<DollsAdpater.ViewHolder>{
             });
         }else{
             if(!user.getUserRole().equals("Admin")){
-                viewHolder.getBtnUpdate().setVisibility(View.GONE);
+                btnUpdate.setVisibility(View.GONE);
             }
         }
 
+        return convertView;
     }
 
-    @Override
+
     public int getItemCount() {
         return dolls.size();
     }
