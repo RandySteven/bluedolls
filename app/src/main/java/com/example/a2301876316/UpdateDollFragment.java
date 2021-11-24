@@ -76,6 +76,22 @@ public class UpdateDollFragment extends Fragment {
         btnUpdateDoll = vg.findViewById(R.id.btnUpdateDoll);
     }
 
+    private boolean dollNameChecker(ArrayList<Doll> dolls, String dollName){
+        boolean search = false;
+        if(dolls.isEmpty()){
+            return true;
+        }else{
+            for(int i = 0 ; i < dolls.size() ; i++){
+                if(dollName.equals(dolls.get(i).getDollName())){
+                    search = false;
+                }else{
+                    search = true;
+                }
+            }
+        }
+        return search;
+    }
+
     private void updateDoll(){
         etDollName.setText(dolls.get(index).getDollName());
         etDollDescription.setText(dolls.get(index).getDollDescription());
@@ -85,7 +101,7 @@ public class UpdateDollFragment extends Fragment {
                 dollName = etDollName.getText().toString();
                 dollDescription = etDollDescription.getText().toString();
                 dollImage = Integer.parseInt(spnDollImage.getSelectedItem().toString());
-                boolean validation1 = false;boolean validation2 = false;
+                boolean validation1 = false;boolean validation2 = false;boolean validation3 = false;
                 if(dollName.length() == 0){
                     tvMessageDollName.setText("Doll name must required");
                 }else{
@@ -100,7 +116,15 @@ public class UpdateDollFragment extends Fragment {
                     tvMessageDollDescription.setText(null);
                 }
 
-                if(validation1 == true && validation2 == true){
+                validation3 = dollNameChecker(dolls, dollName);
+
+                if(validation3 == true){
+                    tvMessageDollName.setText(null);
+                }else{
+                    tvMessageDollName.setText("There are same doll's name");
+                }
+
+                if(validation1 == true && validation2 == true && validation3 == true){
                     dolls.get(index).setDollName(dollName);
                     dolls.get(index).setDollDescription(dollDescription);
                     dolls.get(index).setDollImage(dollImage);

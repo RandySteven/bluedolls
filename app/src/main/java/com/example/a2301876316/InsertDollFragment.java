@@ -17,6 +17,8 @@ import com.example.a2301876316.models.Doll;
 import com.example.a2301876316.models.DollFactory;
 import com.example.a2301876316.models.User;
 
+import java.util.ArrayList;
+
 public class InsertDollFragment extends Fragment {
 
     DrawerLayout drawerLayout;
@@ -27,6 +29,7 @@ public class InsertDollFragment extends Fragment {
             R.drawable.matryoshka_doll,
             R.drawable.girl_doll
     };
+    ArrayList<Doll> dolls = new DollFactory().getDolls();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         vg = (ViewGroup)inflater.inflate(R.layout.insert_doll_fragment, container, false);
@@ -61,6 +64,22 @@ public class InsertDollFragment extends Fragment {
         user = (User) getActivity().getIntent().getSerializableExtra("User");
     }
 
+    private boolean dollNameChecker(ArrayList<Doll> dolls, String dollName){
+        boolean search = false;
+        if(dolls.isEmpty()){
+            return true;
+        }else{
+            for(int i = 0 ; i < dolls.size() ; i++){
+                if(dollName.equals(dolls.get(i).getDollName())){
+                    search = false;
+                }else{
+                    search = true;
+                }
+            }
+        }
+        return search;
+    }
+
     private void createDoll(){
         btnSaveDoll.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +95,14 @@ public class InsertDollFragment extends Fragment {
                     tvMessageDollName.setText(null);
                 }
 
+                validation3 = dollNameChecker(dolls, dollName);
+
+                if(validation3 == true){
+                    tvMessageDollName.setText(null);
+                }else{
+                    tvMessageDollName.setText("There are same doll's name");
+                }
+
                 if(dollDescription.length() == 0){
                     tvMessageDollDescription.setText("Doll description must required");
                 }else{
@@ -83,8 +110,7 @@ public class InsertDollFragment extends Fragment {
                     tvMessageDollDescription.setText(null);
                 }
 
-
-                if(validation1 == true && validation2 == true){
+                if(validation1 == true && validation2 == true && validation3 == true){
                     doll = new DollFactory().createDoll(dollName, dollDescription, dollImage, user);
                     new DollFactory().insertDolls(doll);
                     etDollName.setText(null);
