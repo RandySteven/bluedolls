@@ -11,6 +11,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.a2301876316.fragments.AboutUsFragment;
+import com.example.a2301876316.fragments.DollsFragment;
+import com.example.a2301876316.fragments.InsertDollFragment;
 import com.example.a2301876316.models.User;
 
 public class MainActivity extends AppCompatActivity {

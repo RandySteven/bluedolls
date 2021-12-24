@@ -10,13 +10,14 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.a2301876316.models.User;
-import com.example.a2301876316.models.UserFactory;
+import com.example.a2301876316.factory.UserFactory;
 
 import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
 
-    static int index = -1;
+    DataHelper dataHelper = null;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +29,9 @@ public class LoginActivity extends AppCompatActivity {
     EditText etEmail, etPassword;
     Button btnLogin, btnRegister;
     private void init(){
+        if(dataHelper == null){
+            dataHelper = new DataHelper(this);
+        }
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
@@ -36,29 +40,16 @@ public class LoginActivity extends AppCompatActivity {
 
     String email, password;
     private void run(){
-        ArrayList<User> users = new UserFactory().getUsers();
-        for(int i = 0 ; i < users.size() ; i++){
-            System.out.println(users.get(i).getUserEmail());
-            System.out.println(users.get(i).getUserId());
-        }
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 email = etEmail.getText().toString();
                 password = etPassword.getText().toString();
 
-                boolean search = false;
+                User user = dataHelper.login(email, password);
 
-                for(int i = 0 ; i < users.size() ; i++){
-                    if(email.equals(users.get(i).getUserEmail()) && password.equals(users.get(i).getUserPassword())){
-                        search = true;
-                        index = i;
-                    }
-                }
-
-                if(search == true) {
+                if(user != null) {
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    User user = new UserFactory().getUserByIndex(index);
                     intent.putExtra("User", user);
                     startActivity(intent);
                 }else{

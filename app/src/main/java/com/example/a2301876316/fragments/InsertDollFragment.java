@@ -1,27 +1,42 @@
-package com.example.a2301876316;
+package com.example.a2301876316.fragments;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import com.example.a2301876316.DataHelper;
+import com.example.a2301876316.R;
+import com.example.a2301876316.Utils;
+import com.example.a2301876316.adapter.SpinnerDollImageAdapater;
 import com.example.a2301876316.models.Doll;
-import com.example.a2301876316.models.DollFactory;
+import com.example.a2301876316.factory.DollFactory;
 import com.example.a2301876316.models.User;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 public class InsertDollFragment extends Fragment {
 
-    DrawerLayout drawerLayout;
+    DataHelper dataHelper = null;
+    private static final int SELECT_PICTURE = 100;
+    private static final String TAG = "StoreImageActivity";
+
     ViewGroup vg;
     Doll doll;
     Integer dollImages[] = {
@@ -29,13 +44,13 @@ public class InsertDollFragment extends Fragment {
             R.drawable.matryoshka_doll,
             R.drawable.girl_doll
     };
-    ArrayList<Doll> dolls = new DollFactory().getDolls();
+    ArrayList<Doll> dolls;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         vg = (ViewGroup)inflater.inflate(R.layout.insert_doll_fragment, container, false);
         init();
+        chooseImage();
         createDoll();
-
         return vg;
     }
 
@@ -48,19 +63,22 @@ public class InsertDollFragment extends Fragment {
     Button btnSaveDoll;
     String dollName, dollDescription;
     TextView tvMessageDollName, tvMessageDollDescription;
-    Spinner spnDollImage;
+    Button btnDollImage;
     User user;
-    int dollImage;
+    ImageView ivDollImage;
 
     private void init(){
+        if(dataHelper == null){
+            dataHelper = new DataHelper(getActivity());
+        }
+        dolls = dataHelper.getAllDolls();
         etDollName = vg.findViewById(R.id.etDollName);
         etDollDescription = vg.findViewById(R.id.etDollDescription);
         btnSaveDoll = vg.findViewById(R.id.btnSaveDoll);
-        spnDollImage = vg.findViewById(R.id.spnDollImage);
-        SpinnerDollImageAdapater adapter = new SpinnerDollImageAdapater(this.getActivity(), dollImages);
-        spnDollImage.setAdapter(adapter);
+        btnDollImage = vg.findViewById(R.id.btnDollImage);
         tvMessageDollName = vg.findViewById(R.id.tvMessageDollName);
         tvMessageDollDescription = vg.findViewById(R.id.tvMessageDollDescription);
+        ivDollImage = vg.findViewById(R.id.ivDollImage);
         user = (User) getActivity().getIntent().getSerializableExtra("User");
     }
 
@@ -80,13 +98,50 @@ public class InsertDollFragment extends Fragment {
         return search;
     }
 
+    private void chooseImage(){
+        btnDollImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select picture"), SELECT_PICTURE);
+            }
+        });
+    }
+
+    private Uri selectedImageUri;
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == SELECT_PICTURE){
+            if(resultCode == Activity.RESULT_OK){
+                selectedImageUri = data.getData();
+                ivDollImage.setImageURI(selectedImageUri);
+            }
+        }
+    }
+
     private void createDoll(){
         btnSaveDoll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dollImage = Integer.parseInt(spnDollImage.getSelectedItem().toString());
                 dollName = etDollName.getText().toString();
                 dollDescription = etDollDescription.getText().toString();
+                InputStream inputStream = null;
+
+                try{
+                    inputStream = getActivity().getContentResolver().openInputStream(selectedImageUri);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+                byte []inputImage = null;
+                try{
+                    inputImage = Utils.getBytes(inputStream);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
                 boolean validation1 = false;boolean validation2 = false;boolean validation3 = false;
                 if(dollName.length() == 0){
                     tvMessageDollName.setText("Doll name must required");
@@ -111,10 +166,11 @@ public class InsertDollFragment extends Fragment {
                 }
 
                 if(validation1 == true && validation2 == true && validation3 == true){
-                    doll = new DollFactory().createDoll(dollName, dollDescription, dollImage, user);
-                    new DollFactory().insertDolls(doll);
+                    doll = new DollFactory().createDoll(dolls, dollName, dollDescription, inputImage, user);
+                    dataHelper.addDoll(doll);
                     etDollName.setText(null);
                     etDollDescription.setText(null);
+                    ivDollImage.setImageURI(null);
                     Toast.makeText(getContext(), "Doll insert success", Toast.LENGTH_LONG).show();
                 }
             }

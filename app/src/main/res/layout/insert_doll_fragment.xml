@@ -80,19 +80,28 @@
                 android:text="Doll Image"
                 app:layout_constraintStart_toStartOf="parent"/>
 
-            <Spinner
-                android:id="@+id/spnDollImage"
+            <Button
+                android:id="@+id/btnDollImage"
                 android:layout_width="fill_parent"
-                android:layout_height="18dp"
+                android:layout_height="wrap_content"
+                android:text="Choose doll image"
                 app:layout_constraintTop_toBottomOf="@id/tvDollImage"
                 app:layout_constraintStart_toStartOf="parent"/>
+
+            <ImageView
+                android:id="@+id/ivDollImage"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:layout_constraintTop_toBottomOf="@id/btnDollImage"
+                app:layout_constraintStart_toStartOf="parent"
+                />
 
             <Button
                 android:id="@+id/btnSaveDoll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/save_doll"
-                app:layout_constraintTop_toBottomOf="@id/spnDollImage"
+                app:layout_constraintTop_toBottomOf="@id/ivDollImage"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 

@@ -1,4 +1,4 @@
-package com.example.a2301876316;
+package com.example.a2301876316.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,18 +13,23 @@ import android.widget.Toast;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import com.example.a2301876316.DataHelper;
+import com.example.a2301876316.R;
+import com.example.a2301876316.adapter.SpinnerDollImageAdapater;
 import com.example.a2301876316.models.Doll;
-import com.example.a2301876316.models.DollFactory;
+import com.example.a2301876316.factory.DollFactory;
 import com.example.a2301876316.models.User;
 
 import java.util.ArrayList;
 
 public class UpdateDollFragment extends Fragment {
+
+    DataHelper dataHelper = null;
     DrawerLayout drawerLayout;
     ViewGroup vg;
     Doll doll;
     int index = -1;
-    ArrayList<Doll> dolls = new DollFactory().getDolls();
+    ArrayList<Doll> dolls;
     Integer dollImages[] = {
             R.drawable.teddy_bear,
             R.drawable.matryoshka_doll,
@@ -65,6 +70,10 @@ public class UpdateDollFragment extends Fragment {
     int dollImage;
     User user;
     private void init(){
+        if(dataHelper == null){
+            dataHelper = new DataHelper(getContext());
+        }
+        dolls = dataHelper.getAllDolls();
         etDollName = vg.findViewById(R.id.etDollName);
         etDollDescription = vg.findViewById(R.id.etDollDescription);
         spnDollImage = vg.findViewById(R.id.spnDollImage);
@@ -127,7 +136,6 @@ public class UpdateDollFragment extends Fragment {
                 if(validation1 == true && validation2 == true && validation3 == true){
                     dolls.get(index).setDollName(dollName);
                     dolls.get(index).setDollDescription(dollDescription);
-                    dolls.get(index).setDollImage(dollImage);
                     etDollName.setText(null);
                     etDollDescription.setText(null);
                     Toast.makeText(getContext(), "Doll insert success", Toast.LENGTH_LONG).show();

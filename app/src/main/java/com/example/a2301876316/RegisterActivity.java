@@ -11,15 +11,18 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.a2301876316.models.Doll;
 import com.example.a2301876316.models.User;
-import com.example.a2301876316.models.UserFactory;
+import com.example.a2301876316.factory.UserFactory;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    DataHelper dataHelper = null;
     User user;
-    ArrayList<User> users = new UserFactory().getUsers();
+    List<User> users;
     Intent intent;
 
     @Override
@@ -30,7 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
         init();
 
         if(users.isEmpty()){
-            User admin = new UserFactory().userCreate("AA001", "Admin", "admin21@gmail.com", "admin1234", "Male", "Admin");
+            User admin = new User("AA001", "Admin", "admin21@gmail.com", "admin1234", "Male", "Admin");
             users.add(admin);
         }
         insertData();
@@ -41,7 +44,12 @@ public class RegisterActivity extends AppCompatActivity {
     Button btnRegister, btnLogin;
     TextView msgFullName, msgEmail, msgPassword, msgGender, msgPasswordConfirm, msgCheckBoxTermService;
     CheckBox checkBoxTermService;
+
     private void init(){
+        if(dataHelper == null){
+            dataHelper = new DataHelper(this);
+        }
+        users = dataHelper.getAllUsers();
         etFullName = findViewById(R.id.etFullName);
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
@@ -146,23 +154,8 @@ public class RegisterActivity extends AppCompatActivity {
                 if(validation1 == true && validation2 == true &&
                         validation3 == true && validation4 == true &&
                         validation5 == true){
-                    String id = "";
-
-                    for(int i = 0 ; i < users.size() ; i++){
-
-                        if(i < 10){
-                            id = "US00" + i;
-                        }else if(i >= 10 && i < 100){
-                            id = "US0" + i;
-                        }else{
-                            id = "US" + i;
-                        }
-
-                    }
-
-                    User user = new UserFactory().userCreate(id, fullName, email, password, gender, "Users");
-                    new UserFactory().insertUser(user);
-                    userId ++;
+                    user = new UserFactory().userCreate(users, fullName, email, password, gender, "Users");
+                    dataHelper.addUser(user);
                     intent = new Intent(RegisterActivity.this, LoginActivity.class);
                     startActivity(intent);
                 }

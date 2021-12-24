@@ -1,4 +1,4 @@
-package com.example.a2301876316;
+package com.example.a2301876316.adapter;
 
 import android.content.Context;
 import android.view.View;
@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+
+import com.example.a2301876316.R;
 
 public class SpinnerDollImageAdapater extends ArrayAdapter<Integer> {
 

@@ -1,4 +1,4 @@
-package com.example.a2301876316;
+package com.example.a2301876316.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,18 +9,21 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.a2301876316.DataHelper;
+import com.example.a2301876316.adapter.DollsAdpater;
+import com.example.a2301876316.R;
 import com.example.a2301876316.models.Doll;
-import com.example.a2301876316.models.DollFactory;
+import com.example.a2301876316.factory.DollFactory;
 import com.example.a2301876316.models.User;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DollsFragment extends Fragment {
-    static User user;
-    ArrayList<Doll> dolls = new DollFactory().getDolls();
+    public  static User user;
+    DataHelper dataHelper = null;
+    ArrayList<Doll> dolls;
     ViewGroup vg;
     @Nullable
     @Override
@@ -39,6 +42,10 @@ public class DollsFragment extends Fragment {
 
     TextView tvUserName;
     private void init(){
+        if(dataHelper == null){
+            dataHelper = new DataHelper(getContext());
+        }
+        dolls = dataHelper.getAllDolls();
         user = (User) getActivity().getIntent().getSerializableExtra("User");
         tvUserName = vg.findViewById(R.id.tvUserName);
         tvUserName.setText(user.getUserName());

@@ -1,4 +1,4 @@
-package com.example.a2301876316;
+package com.example.a2301876316.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,17 +11,24 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.a2301876316.DataHelper;
+import com.example.a2301876316.R;
+import com.example.a2301876316.Utils;
+import com.example.a2301876316.fragments.DollFragment;
+import com.example.a2301876316.fragments.DollsFragment;
+import com.example.a2301876316.fragments.UpdateDollFragment;
 import com.example.a2301876316.models.Doll;
 import com.example.a2301876316.models.User;
 
 import java.util.ArrayList;
 
 public class DollsAdpater extends ArrayAdapter<Doll> {
-    private ArrayList<Doll> dolls = new ArrayList<>();
+    DataHelper dataHelper = null;
+    private ArrayList<Doll> dolls;
     private LayoutInflater mInflater;
     private Context context;
+
     User user = DollsFragment.user;
     public DollsAdpater(Context context, ArrayList<Doll> dolls){
         super(context, 0, dolls);
@@ -29,7 +36,6 @@ public class DollsAdpater extends ArrayAdapter<Doll> {
         this.mInflater = LayoutInflater.from(context);
         this.dolls = dolls;
     }
-
 
     public View getView(int position, View convertView, ViewGroup parent){
         Doll doll = getItem(position);
@@ -49,16 +55,17 @@ public class DollsAdpater extends ArrayAdapter<Doll> {
         btnDelete = convertView.findViewById(R.id.btnDelete);
         btnUpdate = convertView.findViewById(R.id.btnUpdate);
 
-        ivDollImage.setImageResource(doll.getDollImage());
+        ivDollImage.setImageBitmap(Utils.getImage(doll.getDollImage()));
         tvDollName.setText(doll.getDollName());
         tvDollDescription.setText(doll.getDollDescription());
         btnSeeDoll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 System.out.println(position);
+                String dollId = dolls.get(position).getDollId();
                 FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
                 fragmentManager.beginTransaction()
-                        .replace(R.id.frameLayout, new DollFragment(position))
+                        .replace(R.id.frameLayout, new DollFragment(dollId))
                         .commit();
             }
         });
@@ -68,7 +75,11 @@ public class DollsAdpater extends ArrayAdapter<Doll> {
             btnDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    dolls.remove(position);
+                    if(dataHelper == null)
+                        dataHelper = new DataHelper(getContext());
+
+                    dataHelper.deleteDoll(dolls.get(position).getDollId());
+
                     notifyDataSetChanged();
                 }
             });
@@ -97,7 +108,6 @@ public class DollsAdpater extends ArrayAdapter<Doll> {
 
         return convertView;
     }
-
 
     public int getItemCount() {
         return dolls.size();

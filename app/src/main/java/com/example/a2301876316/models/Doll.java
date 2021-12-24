@@ -4,7 +4,7 @@ public class Doll {
     private String dollId;
     private String dollName;
     private String dollDescription;
-    private int dollImage;
+    private byte []dollImage;
     private User user;
 
     public String getDollId() {
@@ -15,11 +15,11 @@ public class Doll {
         this.dollId = dollId;
     }
 
-    public void setDollImage(int dollImage){
+    public void setDollImage(byte []dollImage){
         this.dollImage = dollImage;
     }
 
-    public int getDollImage(){
+    public byte[] getDollImage(){
         return dollImage;
     }
 
@@ -47,7 +47,7 @@ public class Doll {
         return user;
     }
 
-    public Doll(String dollId, String dollName, String dollDescription, int dollImage, User user){
+    public Doll(String dollId, String dollName, String dollDescription, byte[] dollImage, User user){
         this.dollId = dollId;
         this.dollName = dollName;
         this.dollDescription = dollDescription;
