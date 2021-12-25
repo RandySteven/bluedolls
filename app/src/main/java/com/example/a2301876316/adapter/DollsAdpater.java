@@ -96,7 +96,7 @@ public class DollsAdpater extends ArrayAdapter<Doll> {
                 public void onClick(View v) {
                     FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
                     fragmentManager.beginTransaction()
-                            .replace(R.id.frameLayout, new UpdateDollFragment(position))
+                            .replace(R.id.frameLayout, new UpdateDollFragment(dolls.get(position).getDollId()))
                             .commit();
                 }
             });

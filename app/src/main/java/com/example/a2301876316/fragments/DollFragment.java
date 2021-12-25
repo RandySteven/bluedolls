@@ -26,6 +26,7 @@ public class DollFragment extends Fragment {
     Doll doll;
     User user;
     ArrayList<Doll>dolls;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

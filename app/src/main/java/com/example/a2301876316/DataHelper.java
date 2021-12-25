@@ -209,6 +209,16 @@ public class DataHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void updateDoll(String dollId, String dollName, String dollDesc, byte[] dollImage){
+        String query = "UPDATE " + TABLE_DOLL + " SET DollName = '" +dollName+ "' " +
+                "SET DollDesc = '" + dollDesc + "' " +
+                "SET DollImage = '" + dollImage + "' " +
+                "WHERE DollID = '" + dollId +"'";
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL(query);
+        db.close();
+    }
+
     /**
      * Get User Object
      */

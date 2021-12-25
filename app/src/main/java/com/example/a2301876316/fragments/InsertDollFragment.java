@@ -39,11 +39,6 @@ public class InsertDollFragment extends Fragment {
 
     ViewGroup vg;
     Doll doll;
-    Integer dollImages[] = {
-            R.drawable.teddy_bear,
-            R.drawable.matryoshka_doll,
-            R.drawable.girl_doll
-    };
     ArrayList<Doll> dolls;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
