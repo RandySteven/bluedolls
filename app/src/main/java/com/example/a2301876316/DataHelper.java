@@ -210,12 +210,18 @@ public class DataHelper extends SQLiteOpenHelper {
     }
 
     public void updateDoll(String dollId, String dollName, String dollDesc, byte[] dollImage){
-        String query = "UPDATE " + TABLE_DOLL + " SET DollName = '" +dollName+ "' " +
-                "SET DollDesc = '" + dollDesc + "' " +
-                "SET DollImage = '" + dollImage + "' " +
-                "WHERE DollID = '" + dollId +"'";
+//        String query = "UPDATE " + TABLE_DOLL + " SET DollName = '" +dollName+ "', " +
+//                "DollDescription = '" + dollDesc + "', " +
+//                "DollImage = '" + dollImage + "' " +
+//                "WHERE DollID = '" + dollId +"'";
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL(query);
+        ContentValues values = new ContentValues();
+
+        values.put("DollName", dollName);
+        values.put("DollDescription", dollDesc);
+        values.put("DollImage", dollImage);
+
+        db.update(TABLE_DOLL, values,"DollID=?", new String[]{dollId});
         db.close();
     }
 

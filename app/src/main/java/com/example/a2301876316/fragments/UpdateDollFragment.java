@@ -76,6 +76,7 @@ public class UpdateDollFragment extends Fragment {
         if(dataHelper == null){
             dataHelper = new DataHelper(getContext());
         }
+        dolls = dataHelper.getAllDolls();
         doll = dataHelper.getDoll(dollId);
         etDollName = vg.findViewById(R.id.etDollName);
         etDollDescription = vg.findViewById(R.id.etDollDescription);
@@ -176,7 +177,8 @@ public class UpdateDollFragment extends Fragment {
                     dataHelper.updateDoll(dollId, dollName, dollDescription, inputImage);
                     etDollName.setText(null);
                     etDollDescription.setText(null);
-                    Toast.makeText(getContext(), "Doll insert success", Toast.LENGTH_LONG).show();
+                    ivDollImage.setImageURI(null);
+                    Toast.makeText(getContext(), "Doll update success", Toast.LENGTH_LONG).show();
                 }
             }
         });
