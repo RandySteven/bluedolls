@@ -74,6 +74,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 intent = new Intent(RegisterActivity.this, LoginActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
@@ -158,6 +159,7 @@ public class RegisterActivity extends AppCompatActivity {
                     dataHelper.addUser(user);
                     intent = new Intent(RegisterActivity.this, LoginActivity.class);
                     startActivity(intent);
+                    finish();
                 }
                 
             }

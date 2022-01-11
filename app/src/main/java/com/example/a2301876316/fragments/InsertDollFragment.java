@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -74,7 +75,7 @@ public class InsertDollFragment extends Fragment {
         tvMessageDollName = vg.findViewById(R.id.tvMessageDollName);
         tvMessageDollDescription = vg.findViewById(R.id.tvMessageDollDescription);
         ivDollImage = vg.findViewById(R.id.ivDollImage);
-        user = (User) getActivity().getIntent().getSerializableExtra("User");
+        user = (User) getActivity().getIntent().getSerializableExtra("user");
     }
 
     private boolean dollNameChecker(ArrayList<Doll> dolls, String dollName){

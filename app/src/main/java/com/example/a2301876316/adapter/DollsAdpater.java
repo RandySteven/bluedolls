@@ -35,6 +35,8 @@ public class DollsAdpater extends ArrayAdapter<Doll> {
         this.context = context;
         this.mInflater = LayoutInflater.from(context);
         this.dolls = dolls;
+
+        notifyDataSetChanged();
     }
 
     public View getView(int position, View convertView, ViewGroup parent){
@@ -80,7 +82,6 @@ public class DollsAdpater extends ArrayAdapter<Doll> {
 
                     dataHelper.deleteDoll(dolls.get(position).getDollId());
 
-                    notifyDataSetChanged();
                 }
             });
         }else{

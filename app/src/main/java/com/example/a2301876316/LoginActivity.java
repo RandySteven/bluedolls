@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 if(user != null) {
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    intent.putExtra("User", user);
+                    intent.putExtra("user", user);
                     startActivity(intent);
                 }else{
                     Toast toast = Toast.makeText(getApplicationContext(), "Email and password are wrong", Toast.LENGTH_LONG);
@@ -63,6 +63,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                finish();
                 startActivity(intent);
             }
         });

@@ -46,7 +46,7 @@ public class DollsFragment extends Fragment {
             dataHelper = new DataHelper(getContext());
         }
         dolls = dataHelper.getAllDolls();
-        user = (User) getActivity().getIntent().getSerializableExtra("User");
+        user = (User) getActivity().getIntent().getSerializableExtra("user");
         tvUserName = vg.findViewById(R.id.tvUserName);
         tvUserName.setText(user.getUserName());
     }

@@ -82,7 +82,7 @@ public class UpdateDollFragment extends Fragment {
         etDollDescription = vg.findViewById(R.id.etDollDescription);
         btnDollImage = vg.findViewById(R.id.btnDollImage);
         ivDollImage = vg.findViewById(R.id.ivDollImage);
-        user = (User) getActivity().getIntent().getSerializableExtra("User");
+        user = (User) getActivity().getIntent().getSerializableExtra("user");
         tvMessageDollName = vg.findViewById(R.id.tvMessageDollName);
         tvMessageDollDescription = vg.findViewById(R.id.tvMessageDollDescription);
         btnUpdateDoll = vg.findViewById(R.id.btnUpdateDoll);

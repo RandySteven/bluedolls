@@ -42,6 +42,25 @@
             app:layout_constraintTop_toBottomOf="@id/tvUserName"
             app:layout_constraintStart_toStartOf="parent"/>
 
+
+
+        <EditText
+            android:id="@+id/etPhoneNumber"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvDollDescription"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnSendSMS"/>
+
+        <Button
+            android:id="@+id/btnSendSMS"
+            android:text="Send SMS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvDollDescription"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/etPhoneNumber"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
